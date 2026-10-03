@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ThemedEditor from "./components/ThemedEditor";
+import Request from "./components/request";
 
 function App() {
   const init_value = `{
@@ -9,11 +10,13 @@ function App() {
     "result" : "Example response will be here"
 }`;
 
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(init_value);
+  const [result, setResult] = useState(init_value1);
 
   return (
     // remember h-screen 100vh not 100%
     <div className="h-screen p-5 w-screen bg-blue-200">
+      <Request body={input} setResult={setResult} />
       <div className="flex content-around justify-center gap-5">
         <div className="h-96 flex-1">
           <p>Input</p>
@@ -27,17 +30,14 @@ function App() {
         </div>
         <div className="h-96 flex-1">
           <p>Output</p>
-          <ThemedEditor defaultValue={init_value1} value={input} />
+          <ThemedEditor
+            defaultValue={init_value1}
+            value={result}
+            onChange={(value) => {
+              if (value) setResult(value);
+            }}
+          />
         </div>
-      </div>
-      <div className="flex justify-center gap-5 mt-10">
-        <button className="bg-white hover:bg-gray-400 transition-all motion-reduce:transition-none motion-reduce:hover:transition-none p-2 rounded-xs">
-          Submit
-        </button>
-        <input
-          className="bg-white text-black p-1"
-          placeholder="https://..."
-        ></input>
       </div>
     </div>
   );

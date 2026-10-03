@@ -16,6 +16,8 @@ export default function ThemedEditor({
       options={{
         minimap: { enabled: false },
         automaticLayout: true,
+        formatOnPaste: true,
+        formatOnType: true,
         ...options,
       }}
       defaultLanguage="json"
